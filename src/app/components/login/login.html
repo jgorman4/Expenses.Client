@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card mt-5">
+        <!-- Header -->
+        <div class="card-header bg-primary text-white opacity-75">
+          <h3 class="card-title mb-0">Login</h3>
+        </div>
+
+        <!-- Body -->
+        <div class="card-body bg-white">
+          <div class="alert alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+          </div>
+
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': hasError('email', 'required') || hasError('email', 'email') }"
+                id="email"
+                formControlName="email"
+              />
+              <div class="invalid-feedback" *ngIf="hasError('email', 'required')">Email is required</div>
+              <div class="invalid-feedback" *ngIf="hasError('email', 'email')">Please enter a valid email address</div>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': hasError('password', 'required') || hasError('password', 'minlength') }"
+                id="password"
+                formControlName="password"
+              />
+              <div class="invalid-feedback" *ngIf="hasError('password', 'required')">Password is required</div>
+              <div class="invalid-feedback" *ngIf="hasError('password', 'minlength')">
+                Password must be at least 6 characters long.
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">
+                Login
+              </button>
+            </div>
+
+            <!-- Link -->
+            <div class="text-center mt-3">
+              You do not have an account?
+              <a [routerLink]="'/signup'">Sign Up</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
